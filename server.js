@@ -41,7 +41,8 @@ app.post('/upload', upload.single('video'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No video file uploaded' });
     }
-    const videoUrl = `http://localhost:${port}/uploads/${req.file.filename}`;
+    const baseUrl = process.env.BASE_URL || `http://localhost:${port}`;
+    const videoUrl = `${baseUrl}/uploads/${req.file.filename}`;
     res.json({ 
         message: 'Upload successful', 
         filename: req.file.filename,
